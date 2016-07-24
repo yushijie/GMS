@@ -11,12 +11,17 @@
 // $Id$
 
 return [
-    '__pattern__' => [
-        'name' => '\w+',
+	// 全局变量规则定义
+    '__pattern__'         => [
+        'id'    => '\d+',
     ],
-    '[hello]'     => [
-        ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
-        ':name' => ['index/hello', ['method' => 'post']],
-    ],
-
+    'user/index'      => 'index/user/index',
+    'user/create'     => 'index/user/create',
+    'user/add'        => 'index/user/add',
+    'user/add_list'   => 'index/user/addList',    
+    'user/update/:id' => 'index/user/update',
+    'user/delete/:id' => 'index/user/delete',
+    'user/:id'        => 'index/user/read',
+	
+	'index/hello' => 'index/index/hello'
 ];
