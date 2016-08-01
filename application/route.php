@@ -15,13 +15,15 @@ return [
     '__pattern__'         => [
         'id'    => '\d+',
     ],
-    'user/index'      => 'index/user/index',
-    'user/create'     => 'index/user/create',
-    'user/add'        => 'index/user/add',
-    'user/add_list'   => 'index/user/addList',    
-    'user/update/:id' => 'index/user/update',
-    'user/delete/:id' => 'index/user/delete',
-    'user/:id'        => 'index/user/read',
+//  'user/index'      => 'index/user/index',
+//  'user/create'     => 'index/user/create',
+//  'user/add'        => 'index/user/add',
+//  'user/add_list'   => 'index/user/addList',    
+//  'user/update/:id' => 'index/user/update',
+//  'user/delete/:id' => 'index/user/delete',
+//  'user/:id'        => 'index/user/read',
 	
-	'index/hello' => 'index/index/hello'
+	'index/hello' => 'index/index/hello',
+	
+	//'user/index'		=> 'api/v1.user/index'
 ];

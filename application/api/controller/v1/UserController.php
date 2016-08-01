@@ -1,11 +1,11 @@
 <?php
-namespace app\index\controller;
+namespace app\api\controller\v1;
 
-use app\index\model\User;
+use app\api\model\User;
 
 class UserController
 {
-    // 新增用户数据
+// 新增用户数据
 public function add(){
 	$user = new User;
     if ($user->validate(true)->save(input('post.'))) {
@@ -30,12 +30,30 @@ public function add(){
 	}
 	
 // 读取用户数据
-public function read($id='')
+public function read($id = 0)
 {
     $user = User::get($id);
-    echo $user['nickname'] . '<br/>';
-    echo $user['email'] . '<br/>';
-    echo $user['birthday'] . '<br/>';
+    if ($user) {
+		return json($user);
+	} else {
+		return json(['error' => '用户不存在'], 404);
+	}
+}
+
+// 获取手机验证码
+public function vccode()
+{
+	$phone = 'phone_'.input('phone_number');
+    
+	$code = 'xxx';
+	// 设置缓存数据
+	cache($phone, $code, 3600);
+	
+	
+	
+
+	return json(['msg' => 'vc_code发送成功！'],200);
+	
 }
 
 // 获取用户数据列表
@@ -50,6 +68,7 @@ public function index()
         echo $user->update_time . '<br/>';
         echo '----------------------------------<br/>';
     }
+	return json($list);
 }
 
 // 更新用户数据
