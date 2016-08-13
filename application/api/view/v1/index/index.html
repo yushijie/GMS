@@ -6,15 +6,27 @@
 		<style></style>
 	</head>
 	<body>
-		<h2>创建用户</h2>
-		<form method="post" class="form1">
+		<h2>更新用户</h2>
+		<form method="post" class="form_update">
 			昵 称：
 			<input type="text" class="text" name="nickname">
 			<br/>
 			头 像：
+			<input type="text" class="text" name="header">
+			<br/>
+			邮箱：
 			<input type="text" class="text" name="email">
 			<br/>
-			<input type="button" class="btn1" value=" 提交 ">
+			性别：
+			<input type="text" class="text" name="sex">
+			<br/>
+			地区：
+			<input type="text" class="text" name="address">
+			<br/>
+			个性签名：
+			<input type="text" class="text" name="signature">
+			<br/>
+			<input type="button" class="btn_update" value=" 提交 ">
 		</form>
 		
 		<br />
@@ -25,6 +37,7 @@
 			<input type="text" class="text" name="phone_number">
 			<br/>
 			<input type="button" class="btn3" value=" 获取验证码 ">
+			<input type="button" class="btn4" value=" 查询验证码 ">
 			验证码：
 			<!--verifi-->
 			<input type="text" class="text" name="vc_code">
@@ -32,7 +45,21 @@
 			密 码：
 			<input type="text" class="text" name="password">
 			<br/>
+			密 码 确 认：
+			<input type="text" class="text" name="re_password">
+			<br/>
 			<input type="button" class="btn2" value=" 提交 ">
+		</form>
+		
+		<h2>登录</h2>
+		<form method="post" class="form_login">
+			手 机：
+			<input type="text" class="text" name="phone_number">
+			<br/>
+			密 码：
+			<input type="text" class="text" name="password">
+			<br/>
+			<input type="button" class="btn_login" value=" 登录 ">
 		</form>
 		
 	</body>
@@ -41,16 +68,18 @@
 {load href="/static/js/jquery.min.js" /}
 <script type="text/javascript">
 	
-	$('.btn1').click(function(){
-		var data = $('.form1').serialize();
-		
+	var token = '1234567890014701412462617';
+	
+	$('.btn2').click(function(){
+		var data = $('.form2').serialize();
+		alert(data);
 		var htmlobj = $.ajax({
 			url:"{:url('api/v1.user/add')}",
 			data:data,
 			type:"POST",
 			dataType:"json",
 			success:function(res){
-				alert(res);
+				console.log(res);
 				//alert('success');
 			},
 			error:function(){
@@ -60,7 +89,7 @@
 	});
 	
 	$('.btn3').click(function(){
-		var phoneNum = $("[href='phone_number']").val();
+		var phoneNum = $("[name='phone_number']").val();
 		
 		var htmlobj = $.ajax({
 			url:"{:url('api/v1.user/vccode')}",
@@ -70,7 +99,64 @@
 			type:"POST",
 			dataType:"json",
 			success:function(res){
-				alert(res);
+				console.log(res);
+				//alert('success');
+			},
+			error:function(){
+				alert('error');
+			}
+		});
+	});
+	
+	$('.btn4').click(function(){
+		var phoneNum = $("[name='phone_number']").val();
+		
+		var htmlobj = $.ajax({
+			url:"{:url('api/v1.user/get_vccode')}",
+			data:{
+				'phone_number':phoneNum,
+			},
+			type:"POST",
+			dataType:"json",
+			success:function(res){
+				console.log(res);
+				//alert('success');
+			},
+			error:function(){
+				alert('error');
+			}
+		});
+	});
+	
+	$('.btn_login').click(function(){
+		var data = $('.form_login').serialize();
+		
+		var htmlobj = $.ajax({
+			url:"{:url('api/v1.user/login')}",
+			data:data,
+			type:"POST",
+			dataType:"json",
+			success:function(res){
+				console.log(res);
+				//alert('success');
+			},
+			error:function(){
+				alert('error');
+			}
+		});
+	});
+	
+	$('.btn_update').click(function(){
+		var data = $('.form_update').serialize();
+		data = data + '&token='+token;
+		
+		var htmlobj = $.ajax({
+			url:"{:url('api/v1.user/update')}",
+			data:data,
+			type:"POST",
+			dataType:"json",
+			success:function(res){
+				console.log(res);
 				//alert('success');
 			},
 			error:function(){
